@@ -1,4 +1,4 @@
-package cz.xvasek.bench.handler.impl;
+package cz.xvasek.bench.handler.impl.mocks;
 
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;

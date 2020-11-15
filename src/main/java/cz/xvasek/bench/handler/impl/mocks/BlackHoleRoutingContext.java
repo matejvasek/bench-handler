@@ -1,4 +1,4 @@
-package cz.xvasek.bench.handler.impl;
+package cz.xvasek.bench.handler.impl.mocks;
 
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;

@@ -3,46 +3,20 @@ package cz.xvasek.bench.handler.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import io.quarkus.arc.ManagedContext;
+import cz.xvasek.bench.handler.impl.mocks.MockBeanContainer;
+import cz.xvasek.bench.handler.impl.mocks.MockFactory;
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.funqy.runtime.FunctionConstructor;
 import io.quarkus.funqy.runtime.FunctionInvoker;
 import io.quarkus.funqy.runtime.bindings.knative.events.VertxRequestHandler;
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import io.quarkus.vertx.http.runtime.CurrentVertxRequest;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
-import io.vertx.core.MultiMap;
-import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
-import io.vertx.core.net.NetSocket;
-import io.vertx.core.net.SocketAddress;
-import io.vertx.ext.auth.User;
-import io.vertx.ext.web.Cookie;
-import io.vertx.ext.web.Locale;
 import io.vertx.ext.web.*;
-import javassist.*;
-import javassist.util.proxy.MethodFilter;
-import javassist.util.proxy.MethodHandler;
-import javassist.util.proxy.ProxyFactory;
-import org.graalvm.nativeimage.ImageInfo;
-import org.graalvm.nativeimage.hosted.RuntimeReflection;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
-import javax.enterprise.context.spi.Contextual;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
-import javax.enterprise.util.TypeLiteral;
-import javax.net.ssl.SSLPeerUnverifiedException;
-import javax.net.ssl.SSLSession;
-import javax.security.cert.X509Certificate;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -50,7 +24,6 @@ import java.util.concurrent.Executor;
 
 import static io.quarkus.funqy.runtime.bindings.knative.events.KnativeEventsBindingRecorder.RESPONSE_SOURCE;
 import static io.quarkus.funqy.runtime.bindings.knative.events.KnativeEventsBindingRecorder.RESPONSE_TYPE;
-import static javassist.CtNewConstructor.PASS_PARAMS;
 
 public class Bench {
 

@@ -1,5 +1,6 @@
-package cz.xvasek.bench.handler.impl;
+package cz.xvasek.bench.handler.impl.mocks;
 
+import cz.xvasek.bench.handler.impl.Bench;
 import io.quarkus.arc.ManagedContext;
 import io.quarkus.arc.runtime.BeanContainer;
 

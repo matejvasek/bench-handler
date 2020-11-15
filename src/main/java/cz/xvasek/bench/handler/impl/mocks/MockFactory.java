@@ -1,4 +1,4 @@
-package cz.xvasek.bench.handler.impl;
+package cz.xvasek.bench.handler.impl.mocks;
 
 import io.quarkus.arc.ManagedContext;
 import io.vertx.core.buffer.Buffer;
@@ -16,7 +16,6 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class MockFactory {
@@ -113,7 +112,7 @@ public class MockFactory {
         }
     }
 
-    public static <U> Instance instance(Class<U> uClass) {
+    static <U> Instance instance(Class<U> uClass) {
         try {
             return MOCK_INSTANCE_CLASS
                     .getConstructor(Class.class)
@@ -131,7 +130,7 @@ public class MockFactory {
         }
     }
 
-    public static ManagedContext managedContext() {
+    static ManagedContext managedContext() {
         try {
             return MOCK_MANAGED_CONTEXT_CLASS.getConstructor().newInstance();
         } catch (Throwable t) {
