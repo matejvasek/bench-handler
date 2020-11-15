@@ -11,6 +11,11 @@ public abstract class MockManagedContext implements ManagedContext {
     public void deactivate() { }
 
     @Override
+    public void destroy() {
+
+    }
+
+    @Override
     public boolean isActive() {
         return false;
     }
