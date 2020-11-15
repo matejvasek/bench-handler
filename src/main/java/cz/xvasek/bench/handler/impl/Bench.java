@@ -69,7 +69,7 @@ public class Bench {
         private RoutingContext binRoutingContext;
 
         @Setup(Level.Trial)
-        public void init(Blackhole blackhole) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        public void init(Blackhole blackhole) {
 
             Method method = Arrays.stream(Fun.class.getMethods())
                     .filter(m -> "fun".equals(m.getName()))
