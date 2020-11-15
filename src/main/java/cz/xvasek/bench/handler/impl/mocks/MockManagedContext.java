@@ -5,10 +5,14 @@ import io.quarkus.arc.ManagedContext;
 public abstract class MockManagedContext implements ManagedContext {
 
     @Override
-    public void activate(ContextState contextState) { }
+    public void activate(ContextState contextState) {
+
+    }
 
     @Override
-    public void deactivate() { }
+    public void deactivate() {
+
+    }
 
     @Override
     public void destroy() {
