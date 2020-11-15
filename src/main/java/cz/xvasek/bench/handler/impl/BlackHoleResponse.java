@@ -46,7 +46,7 @@ public abstract class BlackHoleResponse implements HttpServerResponse {
     @Override
     public void end(Buffer buff) {
         if (blackhole == null) {
-            System.out.println("body: <" + new String(buff.getBytes()) + ">");
+            System.out.println("end: <" + new String(buff.getBytes()) + ">");
             return;
         }
         blackhole.consume(buff);
@@ -55,7 +55,7 @@ public abstract class BlackHoleResponse implements HttpServerResponse {
     @Override
     public void end(String writeValueAsString) {
         if (blackhole == null) {
-            System.out.println("body: <" + writeValueAsString + ">");
+            System.out.println("end: <" + writeValueAsString + ">");
             return;
         }
         blackhole.consume(writeValueAsString);
@@ -63,10 +63,20 @@ public abstract class BlackHoleResponse implements HttpServerResponse {
 
     @Override
     public void end() {
+        if (blackhole == null) {
+            System.out.println("end: <>");
+            return;
+        }
+        blackhole.consume(null);
     }
 
     @Override
     public boolean ended() {
+        if (blackhole == null) {
+            System.out.println("ended: <>");
+            return false;
+        }
+        blackhole.consume(null);
         return false;
     }
 }
