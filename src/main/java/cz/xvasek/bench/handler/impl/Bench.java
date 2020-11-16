@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import cz.xvasek.bench.handler.impl.mocks.MockBeanContainer;
 import cz.xvasek.bench.handler.impl.mocks.MockFactory;
+import cz.xvasek.bench.handler.impl.mocks.MockSecureRandom;
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.funqy.runtime.FunctionConstructor;
 import io.quarkus.funqy.runtime.FunctionInvoker;
@@ -17,8 +18,10 @@ import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
 import javax.enterprise.inject.spi.CDI;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.Executor;
 
@@ -133,6 +136,25 @@ public class Bench {
             structRoutingContext = MockFactory.routingContext(blackhole, structRequest, response);
             HttpServerRequest binRequest = MockFactory.httpServerRequest(binHeaders, HttpMethod.POST, params, binBody, path);
             binRoutingContext = MockFactory.routingContext(blackhole, binRequest, response);
+        }
+    }
+
+    static {
+        try {
+            Class<?> holder = Arrays.stream(UUID.class.getDeclaredClasses())
+                    .filter(x -> "Holder".equals(x.getSimpleName()))
+                    .findFirst()
+                    .orElse(null);
+            Field numberGenerator = holder.getDeclaredField("numberGenerator");
+            numberGenerator.setAccessible(true);
+
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(numberGenerator, numberGenerator.getModifiers() & ~Modifier.FINAL);
+
+            numberGenerator.set(null, new MockSecureRandom());
+        } catch (Throwable t) {
+            System.err.println("Failed to mock SecureRandom for UUID.");
         }
     }
 
