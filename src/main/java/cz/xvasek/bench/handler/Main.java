@@ -23,7 +23,7 @@ public class Main {
 //            state.init(null);
 //            Bench b = new Bench();
 //            for (int i = 0; i < 1_000_000; i++) {
-//                b.benchBinary(state);
+//                b.benchVanilla(state);
 //            }
             return 0;
         }
